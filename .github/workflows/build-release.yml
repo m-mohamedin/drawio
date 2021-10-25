@@ -2,8 +2,6 @@ name: Build & Release
 
 on:
   push:
-    branch:
-      - release
     paths:
       - VERSION
 
@@ -22,8 +20,7 @@ jobs:
         cd etc/build
         ant
     - name: Tag and Push
-      run: |        
-        cd ../..
+      run: |
         export VERSION=`cat VERSION`
         git config user.name github-actions
         git config user.email github-actions@github.com
