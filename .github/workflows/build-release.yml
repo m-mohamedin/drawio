@@ -18,6 +18,8 @@ jobs:
       run: |
         eval `ssh-agent -s`
         echo "${{secrets.I18N_SUBMODULE_SSHKEY}}" | ssh-add -
+        git config user.name github-actions
+        git config user.email github-actions@github.com
         git submodule update --init --recursive
         ssh-add -D
         eval `ssh-agent -k`
