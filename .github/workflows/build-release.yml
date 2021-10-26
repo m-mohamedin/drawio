@@ -14,7 +14,15 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: 'release'
-        submodules: 'recursive'
+    - name: Get Submodule
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        eval `ssh-agent -s`
+        echo "${{secrets.I18N_SUBMODULE_SSHKEY}}" | ssh-add -
+        git submodule update --init --recursive
+        ssh-add -D
+        eval `ssh-agent -k`
     - name: Build
       run: |
         cd etc/build
