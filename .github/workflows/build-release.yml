@@ -2,8 +2,6 @@ name: Build & Release
 
 on:
   push:
-    paths:
-      - VERSION
 
 jobs:
   build:
@@ -15,9 +13,9 @@ jobs:
       with:
         ref: 'release'
     - name: Get Submodule
+      env:
+        GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
       run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         eval `ssh-agent -s`
         echo "${{secrets.I18N_SUBMODULE_SSHKEY}}" | ssh-add -
         git submodule update --init --recursive
