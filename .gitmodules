@@ -1,0 +1,3 @@
+[submodule "src/main/webapp/resources"]
+	path = src/main/webapp/resources
+	url = https://github.com/jgraph/drawio-i18n.git
