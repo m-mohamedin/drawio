@@ -26,8 +26,6 @@ jobs:
         cd etc/build
         npm install workbox-cli --global
         ln -s `which workbox` /usr/local/bin/workbox
-        ls -l /usr/local/bin/workbox
-        /usr/local/bin/workbox
         ant
     - name: Tag and Push
       run: |
