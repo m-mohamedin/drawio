@@ -25,6 +25,8 @@ jobs:
       run: |
         cd etc/build
         npm install workbox-cli --global
+        ls /usr/local/bin/
+        ln -s `whereis workbox` /usr/local/bin/workbox
         whereis workbox
         workbox
         /usr/local/bin/workbox
