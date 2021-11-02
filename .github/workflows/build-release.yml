@@ -1,4 +1,4 @@
-name: Build & Release
+oname: Build & Release
 
 on:
   push:
@@ -33,7 +33,9 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         pwd
-        cat abc > new.txt
+        echo abc > new.txt
+        echo efg > src/main/webapp/workbox-34343.js
+        git add src/main/webapp/workbox-*js*
         git add new.txt
         git commit -a -m "Ready for $VERSION"
         git push
