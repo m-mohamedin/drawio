@@ -16,6 +16,7 @@ jobs:
         ref: 'release'
     - name: Get Submodule
       run: |
+        git config --global --add safe.directory '*'
         git submodule init
         git config submodule.src/main/webapp/resources.url  https://${{secrets.I18N_USERNAME}}:${{secrets.I18N_ACCESS_KEY}}@github.com/jgraph/drawio-i18n.git
         git submodule update --init --recursive
