@@ -4,9 +4,11 @@ on:
   push:
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+  container:
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/release'
+    container:
+      image: 'jgraph/drawio-builder:latest'
     steps:
     - name: Checkout reposistory
       uses: actions/checkout@v2
@@ -17,26 +19,16 @@ jobs:
         git submodule init
         git config submodule.src/main/webapp/resources.url  https://${{secrets.I18N_USERNAME}}:${{secrets.I18N_ACCESS_KEY}}@github.com/jgraph/drawio-i18n.git
         git submodule update --init --recursive
-    - name: Installing Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
     - name: Build
       run: |
         cd etc/build
-        npm install workbox-cli --global
-        ln -s `which workbox` /usr/local/bin/workbox
         ant
     - name: Tag and Push
       run: |
         export VERSION=`cat VERSION`
         git config user.name github-actions
         git config user.email github-actions@github.com
-        pwd
-        echo abc > new.txt
-        echo efg > src/main/webapp/workbox-34343.js
-        git add src/main/webapp/workbox-*js*
-        git add new.txt
+        git add .
         git commit -a -m "Ready for $VERSION"
         git push
         git tag "diagramly-${VERSION//\./_}"
